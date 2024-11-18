@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <title>Attendie-AI</title>
+
+    <style>
+        /* Add your existing styles here */
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: rgb(0, 0, 0);
+            color: white;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .company-name {
+            font-size: 24px;
+            margin-left: 20px;
+        }
+
+        .menu {
+            margin-right: 20px;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .container {
+            text-align: left;
+            max-width: 700px;
+            padding: 20px;
+        }
+
+        .maincontainer {
+            text-align: center;
+            max-width: 80%;
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+            margin-bottom: 250px;
+            border: 1px solid white;
+            padding: 20px;
+        }
+
+        .buttonContainer {
+            margin-top: 50px;
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .tContainer,
+        .sContainer {
+            border: 1px solid white;
+            text-align: left;
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+            overflow: auto;
+            padding: 10px;
+            padding-top: 1px;
+            padding-left: 22px;
+            word-wrap: break-word;
+            background-image: linear-gradient(to bottom right, #454545, #262626);
+            background-clip: border-box;
+            border: 1px solid rgba(0, 0, 0, 0.125);
+            border-radius: 5px;
+            margin-right: auto;
+            margin-bottom: 20px;
+        }
+
+        .about-us {
+            font-size: 50px;
+            margin-bottom: 5px;
+            padding: 20px;
+            margin-left: -10px;
+            margin-top: -50px;
+        }
+
+        .about-us p {
+            font-size: 20px;
+            margin-top: -60px;
+            margin-right: 120px;
+        }
+
+        .startButton {
+            display: block;
+            border-radius: 4px;
+            background-image: linear-gradient(to bottom right, #454545, #262626);
+            background-clip: border-box;
+            border: 1px solid rgba(0, 0, 0, 0.125);
+            border-radius: 5px;
+            border: none;
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 20px;
+            padding: 20px;
+            width: 300px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .startButton span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
+
+        .startButton span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+
+        .startButton:hover span {
+            padding-right: 25px;
+        }
+
+        .startButton:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+
+        .homeImage {
+            margin: 0;
+            width: 100%;
+            height: auto;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .container {
+                max-width: 100%;
+            }
+
+            .maincontainer {
+                margin-bottom: 50px;
+            }
+
+            .buttonContainer {
+                margin-top: 50px;
+            }
+
+            .tContainer,
+            .sContainer {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="company-name">ATTENDIE AI</div>
+        <div class="menu">
+            <a href="#">HOME</a>
+           <!-- <a href="#">CONTACT US</a> -->
+        </div>
+    </div>
+
+    <div class="backgroundImageContainer">
+        <div class="container">
+            <div class="about-us">
+                <h2>ABOUT US</h2>
+                <p>An advanced meeting enhancement and automation device designed to transform the way meetings are
+                    conducted and managed. Attendie combines state-of-the-art features including automatic
+                    summarization, highlights/key points extraction, language conversion, speaker identification using
+                    video recording, and personalized task alerts/name callouts, offering an unparalleled meeting
+                    experience.
+                </p>
+            </div>
+
+            <div class="tryButtonContainer">
+                <button class="startButton" style="margin-top: -20px;" id="tryAttendieButton"><span>Try
+                        Attendie-AI</span></button>
+            </div>
+
+            <div class="homeImages">
+
+            </div>
+
+        </div>
+
+        <img class="homeImage" src="{{url_for('static', filename = 'att_images.png')}}" height="432px" width="768px" alt="">
+        <div id="tryAttendie" class="buttonContainer">
+            <img src="{{url_for('static', filename='bot.png')}}" alt="">
+            <button class="startButton" id="startRecordButton"><span>Start Recording</span></button>
+            <button class="startButton" type="submit" id="stopRecordButton" style="display:none;">Stop Recording</button>
+        </div>
+        <div class="mainContainer">
+
+            <div class="tContainer">
+                <h2>Transcription:</h2>
+                <p id="transcription"></p>
+            </div>
+            <div class="sContainer">
+                <h2>Summary:</h2>
+                <p id="summary"></p>
+                <ul id="summaryList"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let mediaRecorder;
+        let audioChunks = [];
+
+        async function startRecording() {
+            const stream = await navigator.mediaDevices.getUserMedia({
+                audio: true
+            });
+            mediaRecorder = new MediaRecorder(stream);
+
+            mediaRecorder.ondataavailable = event => {
+                audioChunks.push(event.data);
+            };
+
+            mediaRecorder.onstop = async () => {
+                const audioBlob = new Blob(audioChunks, {
+                    type: 'audio/wav'
+                });
+                const formData = new FormData();
+                formData.append('audio_data', audioBlob, 'audio.wav');
+                formData.append('action', 'stop');
+
+                try {
+                    const response = await fetch('/record', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const data = await response.json();
+                    document.getElementById('transcription').textContent = data.transcription;
+                    displaySentences(data.bullet_points, 'summaryList');
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+
+                audioChunks = [];
+            };
+
+            mediaRecorder.start();
+            document.getElementById('startRecordButton').style.display = 'none';
+            document.getElementById('stopRecordButton').style.display = 'block';
+        }
+
+        function stopRecording() {
+            mediaRecorder.stop();
+            document.getElementById('startRecordButton').style.display = 'block';
+            document.getElementById('stopRecordButton').style.display = 'none';
+        }
+
+        function displaySentences(paragraph, containerId) {
+            const sentences = paragraph.split('. ');
+            const list = document.getElementById(containerId);
+
+            sentences.forEach(sentence => {
+                const listItem = document.createElement('li');
+                listItem.textContent = sentence;
+                list.appendChild(listItem);
+            });
+        }
+
+        document.getElementById('startRecordButton').addEventListener('click', startRecording);
+        document.getElementById('stopRecordButton').addEventListener('click', stopRecording);
+
+        document.getElementById('tryAttendieButton').addEventListener('click', function () {
+            var section = document.getElementById('tryAttendie');
+            section.scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    </script>
+
+
+</body>
+<script>
+    document.getElementById('tryAttendieButton').addEventListener('click', function () {
+        var section = document.getElementById('tryAttendie');
+        section.scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+</script>
+</body>
+
+</html>
